@@ -3,16 +3,16 @@ import streamlit as st
 import pandas as pd
 
 st.write(''' # Predicción de Costos ''')
-st.image("Dexter.jpg", caption="Predicción del costo basado en características del gasto.")
+st.image("euler.jpg", caption="Analicemos cuánto gastarás día con día.")
 st.header('Datos')
 
 def user_input_features():
     # Entrada
-    Presupuesto = st.number_input('Presupuesto:', min_value=0.0, max_value=500.0, value=0.0, step=1.0)
-    Tiempo_invertido = st.number_input('Tiempo invertido:', min_value=0, max_value=100, value=0, step=1)
-    Tipo = st.number_input('Tipo:', min_value=1, max_value=10, value=1, step=1)
-    Momento = st.number_input('Momento:', min_value=1, max_value=10, value=1, step=1)
-    No_personas = st.number_input('No. de personas:', min_value=1, max_value=20, value=1, step=1)
+    Presupuesto = st.number_input('Presupuesto:', min_value=0.0, max_value=5000.0, value=0.0, step=1.0)
+    Tiempo_invertido = st.number_input('Tiempo invertido (minutos):', min_value=0, max_value=1000, value=0, step=1)
+    Tipo = st.number_input('Tipo (1-6):', min_value=1, max_value=6, value=1, step=1)
+    Momento = st.number_input('Momento (1-3):', min_value=1, max_value=3, value=1, step=1)
+    No_personas = st.number_input('No. de personas:', min_value=1, max_value=100, value=1, step=1)
     
     user_input_data = {'Presupuesto': Presupuesto,
                        'Tiempo invertido': Tiempo_invertido,
