@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 
 st.write(''' # Predicción de Costo de actividad  ''')
-st.image("euler.jpg", caption="Analicemos cuánto gastarás día con día.")
+st.image("Dexter.jpg", caption="Analicemos cuánto gastarás día con día.")
 st.header('Datos')
 
 def user_input_features():
