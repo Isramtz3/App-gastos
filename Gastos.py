@@ -8,7 +8,7 @@ st.header('Datos')
 
 def user_input_features():
     # Entrada
-    Presupuesto = st.number_input('Presupuesto:', min_value=0.0, max_value=5000.0, value=0.0, step=1.0)
+    Presupuesto = st.number_input('Presupuesto:', min_value=0.0, max_value=5000000.0, value=0.0, step=1.0)
     Tiempo_invertido = st.number_input('Tiempo invertido (minutos):', min_value=0, max_value=1000, value=0, step=1)
     Tipo = st.number_input('Tipo (1-6):', min_value=1, max_value=6, value=1, step=1)
     Momento = st.number_input('Momento (1-3):', min_value=1, max_value=3, value=1, step=1)
