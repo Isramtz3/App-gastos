@@ -52,7 +52,7 @@ prediccion = b0 + b1[0]*df['Presupuesto'] + b1[1]*df['Tiempo invertido'] + b1[2]
 st.subheader('Predicción del Costo')
 if prediccion < 0:
     st.write("El costo fue negativo (no tiene sentido), así que se reduce a $0"
-else:
+             else:
     st.write('El costo estimado es: $', round(float(prediccion), 2))
 
 # Mostrar métricas del modelo
