@@ -5,7 +5,7 @@ from sklearn.tree import DecisionTreeClassifier
 
 
 st.write('''# Predicción del costo de actividad''')
-st.image("euler,jpg", caption="Analicemos si gastarás mucho en tu día a día.")
+st.image("euler.jpg", caption="Analicemos si gastarás mucho en tu día a día.")
 
 st.header('Datos de evaluación')
 
