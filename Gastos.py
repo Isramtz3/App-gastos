@@ -1,7 +1,8 @@
+%%writefile Gastos.py
 import numpy as np
 import streamlit as st
 import pandas as pd
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import DecisionTreeRegressor
 
 
 st.write('''# Predicción del costo de actividad''')
@@ -31,10 +32,10 @@ gastos = pd.read_csv('Gastos_ok (1).csv', encoding='utf-8')
 X = gastos.drop(columns='Costo')
 Y = gastos['Costo']
 
-classifier = DecisionTreeClassifier(max_depth=2, criterion='squared_error', min_samples_leaf=25, max_features=1, random_state=1615170)
-classifier.fit(X, Y)
+regressor = DecisionTreeRegressor(max_depth=2, criterion='squared_error', min_samples_leaf=25, max_features=1, random_state=1615170)
+regressor.fit(X, Y)
 
-prediction = classifier.predict(df)
+prediction = regressor.predict(df)
 
 st.subheader('Predicción')
 st.write(f'Costo estimado: ${prediction[0]:.2f}')
