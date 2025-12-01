@@ -27,11 +27,11 @@ def user_input_features():
 
 df = user_input_features()
 
-gastos = pd.read_csv('Gastos_ok (1).csv', encoding='utf-8')
+gastos = pd.read_csv('Gastos_ok.csv', encoding='utf-8')
 X = gastos.drop(columns='Costo')
 Y = gastos['Costo']
 
-regressor = DecisionTreeRegressor(max_depth=2, criterion='squared_error', min_samples_leaf=25, max_features=1, random_state=1615170)
+regressor = DecisionTreeRegressor(max_depth=3, criterion='squared_error', min_samples_leaf=25, max_features=4, random_state=1615170)
 regressor.fit(X, Y)
 
 prediction = regressor.predict(df)
