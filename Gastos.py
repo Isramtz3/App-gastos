@@ -42,16 +42,13 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random
 LR = LinearRegression()
 LR.fit(X_train, y_train)
 
-# Obtener coeficientes
-b1 = LR.coef_
-b0 = LR.intercept_
-
-# Hacer predicción
-prediccion = b0 + b1[0]*df['Presupuesto'] + b1[1]*df['Tiempo invertido'] + b1[2]*df['Tipo'] + b1[3]*df['Momento'] + b1[4]*df['No. de personas']
+# Hacer predicción usando el método .predict() del modelo
+prediccion = LR.predict(df)[0]  # [0] extrae el primer (y único) valor
 
 st.subheader('Predicción del Costo')
 if prediccion < 0:
     st.write("El costo fue negativo (no tiene sentido), así que se reduce a $0")
+    st.write('El costo estimado es: $0.00')
 else:
     st.write('El costo estimado es: $', round(float(prediccion), 2))
 
