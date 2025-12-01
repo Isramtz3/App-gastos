@@ -47,7 +47,7 @@ prediccion = LR.predict(df)[0]  # [0] extrae el primer (y único) valor
 
 st.subheader('Predicción del Costo')
 if prediccion < 0:
-    st.write("El costo fue negativo (no tiene sentido), así que se reduce a $0")
+    st.write("El costo fue negativo (no tiene sentido, ya que no contarías con el capital necesario), así que se reduce a $0")
     st.write('El costo estimado es: $0.00')
 else:
     st.write('El costo estimado es: $', round(float(prediccion), 2))
