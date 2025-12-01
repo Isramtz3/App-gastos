@@ -2,7 +2,7 @@ import numpy as np
 import streamlit as st
 import pandas as pd
 
-st.write(''' # Predicción de Costos ''')
+st.write(''' # Predicción de Costo de actividad  ''')
 st.image("euler.jpg", caption="Analicemos cuánto gastarás día con día.")
 st.header('Datos')
 
@@ -50,7 +50,10 @@ b0 = LR.intercept_
 prediccion = b0 + b1[0]*df['Presupuesto'] + b1[1]*df['Tiempo invertido'] + b1[2]*df['Tipo'] + b1[3]*df['Momento'] + b1[4]*df['No. de personas']
 
 st.subheader('Predicción del Costo')
-st.write('El costo estimado es: $', round(float(prediccion), 2))
+if prediccion < 0:
+    st.write("El costo fue negativo (no tiene sentido), así que se reduce a $0"
+else:
+    st.write('El costo estimado es: $', round(float(prediccion), 2))
 
 # Mostrar métricas del modelo
 from sklearn.metrics import r2_score, mean_squared_error
@@ -59,5 +62,5 @@ r2 = r2_score(y_test, y_pred)
 rmse = np.sqrt(mean_squared_error(y_test, y_pred))
 
 st.subheader('Métricas del Modelo')
-st.write(f'R² Score: {r2:.4f}')
+st.write(f'R² :) : {r2:.4f}')
 st.write(f'RMSE: {rmse:.2f}')
