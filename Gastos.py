@@ -1,40 +1,63 @@
 import numpy as np
 import streamlit as st
 import pandas as pd
-from sklearn.tree import DecisionTreeRegressor
 
-
-st.write('''# Predicción del costo de actividad''')
-st.image("euler.jpg", caption="Analicemos si gastarás mucho en tu día a día.")
-
-st.header('Datos de evaluación')
+st.write(''' # Predicción de Costos ''')
+st.image("Dexter.jpg", caption="Predicción del costo basado en características del gasto.")
+st.header('Datos')
 
 def user_input_features():
-    Presupuesto = st.number_input('Presupuesto:', min_value=1.0, max_value=100000.0, value=20.0, step=0.1)
-    Tiempo_invertido = st.number_input('Tiempo invertido:', min_value=1.0, max_value=1400.0, value=1.0, step=1.0)
+    # Entrada
+    Presupuesto = st.number_input('Presupuesto:', min_value=0.0, max_value=5000.0, value=0.0, step=1.0)
+    Tiempo_invertido = st.number_input('Tiempo invertido:', min_value=0, max_value=1000, value=0, step=1)
     Tipo = st.number_input('Tipo (1-6):', min_value=1, max_value=6, value=1, step=1)
     Momento = st.number_input('Momento (1-3):', min_value=1, max_value=3, value=1, step=1)
-    No_personas = st.number_input('No. de personas:', min_value=1, max_value=100, value=1, step=1)
-
+    No_personas = st.number_input('No. de personas:', min_value=1, max_value=20, value=1, step=1)
+    
     user_input_data = {'Presupuesto': Presupuesto,
                        'Tiempo invertido': Tiempo_invertido,
                        'Tipo': Tipo,
                        'Momento': Momento,
-                       'No. de personas': No_personas}
-
+                       'No. de personas': No_personas
+                       }
     features = pd.DataFrame(user_input_data, index=[0])
     return features
 
 df = user_input_features()
 
-gastos = pd.read_csv('Gastos_ok.csv', encoding='utf-8')
-X = gastos.drop(columns='Costo')
-Y = gastos['Costo']
+# Leer el archivo CSV
+f = pd.read_csv("Gastos.csv")
 
-regressor = DecisionTreeRegressor(max_depth=3, criterion='squared_error', min_samples_leaf=25, max_features=4, random_state=1615170)
-regressor.fit(X, Y)
+# Preparar los datos
+X = f[['Presupuesto', 'Tiempo invertido', 'Tipo', 'Momento', 'No. de personas']]
+y = f['Costo']
 
-prediction = regressor.predict(df)
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
 
-st.subheader('Predicción')
-st.write(f'Costo estimado: ${prediction[0]:.2f}')
+# Dividir los datos
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=1615170)
+
+# Entrenar el modelo
+LR = LinearRegression()
+LR.fit(X_train, y_train)
+
+# Obtener coeficientes
+b1 = LR.coef_
+b0 = LR.intercept_
+
+# Hacer predicción
+prediccion = b0 + b1[0]*df['Presupuesto'] + b1[1]*df['Tiempo invertido'] + b1[2]*df['Tipo'] + b1[3]*df['Momento'] + b1[4]*df['No. de personas']
+
+st.subheader('Predicción del Costo')
+st.write('El costo estimado es: $', round(float(prediccion), 2))
+
+# Mostrar métricas del modelo
+from sklearn.metrics import r2_score, mean_squared_error
+y_pred = LR.predict(X_test)
+r2 = r2_score(y_test, y_pred)
+rmse = np.sqrt(mean_squared_error(y_test, y_pred))
+
+st.subheader('Métricas del Modelo')
+st.write(f'R² Score: {r2:.4f}')
+st.write(f'RMSE: {rmse:.2f}')
