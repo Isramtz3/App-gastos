@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 
 st.write(''' # Predicción de Costos ''')
-st.image("euler.jpg", caption="Predicción del costo basado en características del gasto.")
+st.image("euler.jpg", caption="Analicemos cuánto dinero gastarás en tu día a día.")
 st.header('Datos')
 
 def user_input_features():
@@ -49,8 +49,9 @@ b0 = LR.intercept_
 # Hacer predicción
 prediccion = b0 + b1[0]*df['Presupuesto'] + b1[1]*df['Tiempo invertido'] + b1[2]*df['Tipo'] + b1[3]*df['Momento'] + b1[4]*df['No. de personas']
 
-st.subheader('Predicción del Costo')
+st.subheader('Predicción del Costo (un número negativo indica que gastarás)')
 st.write('El costo estimado es: $', round(float(prediccion), 2))
+
 
 # Mostrar métricas del modelo
 from sklearn.metrics import r2_score, mean_squared_error
